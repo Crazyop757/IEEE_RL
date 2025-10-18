@@ -1,0 +1,111 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Data files (CSV outputs)
+Energy_data_*.csv
+*_output.csv
+*_results.csv
+
+# Model checkpoints and training outputs
+*.pkl
+*.pth
+*.h5
+*.ckpt
+checkpoints/
+models/
+saved_models/
+logs/
+tensorboard/
+runs/
+
+# Q-Learning specific
+qtable_*.csv
+qtable_*.npy
+q_values/
+
+# SAC specific
+sac_models/
+sac_logs/
+*.pt
+
+# OS specific
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+temp/
+tmp/
+
+# Environment variables
+.env
+.env.local
+
+# Documentation builds
+docs/_build/
+site/
+
+# Test coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Large data files (uncomment if needed)
+# *.csv
+# data/
