@@ -42,7 +42,21 @@ def train_sac():
     print(f"Action Dimension: {config.ACTION_DIM}")
     print(f"Total Episodes: {config.TOTAL_EPISODES}")
     print(f"Device: {config.DEVICE}")
+    print(f"Action Scale: {config.ACTION_SCALE * 100:.1f}% of capacity per step")
+    print(f"Reward Shaping: {'Enabled' if config.USE_REWARD_SHAPING else 'Disabled'}")
     print("="*60)
+    
+    # Show baseline targets
+    try:
+        import pandas as pd
+        baseline_df = pd.read_csv('./logs/baseline_comparison.csv')
+        best_baseline = baseline_df['Cost'].min()
+        print(f"\n📊 Performance Targets:")
+        print(f"   Best Baseline: ${best_baseline:.2f}")
+        print(f"   Target (10% improvement): ${best_baseline * 0.9:.2f}")
+        print("="*60 + "\n")
+    except:
+        pass
     
     # Training loop
     for episode in range(config.TOTAL_EPISODES):
@@ -238,7 +252,8 @@ if __name__ == "__main__":
     agent, rewards, costs = train_sac()
     
     # Optional: Compare with Q-Learning
-    # qlearning_results_path = r'D:\IIITN\PhD\Reinforcement_Learning_implementation\AnalysisOfImplementation_v7.csv'
-    # compare_with_qlearning(agent, env, qlearning_results_path)
+    # qlearning_results_path = r'..\Code_QLearning\AnalysisOfImplementation_v7.csv'
+    # if os.path.exists(qlearning_results_path):
+    #     compare_with_qlearning(agent, env, qlearning_results_path)
     
     print("\nTraining completed successfully!")

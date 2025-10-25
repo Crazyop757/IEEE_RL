@@ -23,7 +23,9 @@ def main():
         # ESS_EV_status = ESS_EV_updated
 
         # print("Optimization Done!!!!")
-        Energy_data = pd.read_csv(r'D:\\IIITN\\PhD\\Reinforcement_Learning_implementation\\Energy_data_v7.csv')
+        # Read Energy_data_v7.csv from the same directory
+        energy_data_path = os.path.join(script_dir, 'Energy_data_v7.csv')
+        Energy_data = pd.read_csv(energy_data_path)
         
         # mg = ['community', 'industry', 'single_dwelling', 'campus'] 
         # # read deficit/surplus files into a DataFrame
@@ -55,7 +57,16 @@ def main():
     #     print(data[i])
     #     j = j + 1
     
-        input_data = pd.read_csv(r'D:\\IIITN\\PhD\\Reinforcement_Learning_implementation\\Data_for_Qcode.csv') 
+        # Read input data using relative path
+        import os
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        input_data_path = os.path.join(script_dir, 'Data_for_Qcode.csv')
+        
+        # If Data_for_Qcode.csv doesn't exist, try Energy_data_v7.csv
+        if not os.path.exists(input_data_path):
+            input_data_path = os.path.join(script_dir, 'Energy_data_v7.csv')
+        
+        input_data = pd.read_csv(input_data_path) 
         gbp=input_data.loc[1].at["GBP"]
         mbp=input_data.loc[1].at["MBP"]
         msp=input_data.loc[1].at["MSP"]
@@ -385,11 +396,16 @@ def main():
                     ask.append(0)
                     analysisData.append(0)
                     analysisData.append(0)
-                with open('D:\\IIITN\\PhD\\Reinforcement_Learning_implementation\\bidAsk_v7.csv', 'a', newline='') as csvfile:
+                
+                # Write output files to the same directory
+                bidask_path = os.path.join(script_dir, 'bidAsk_v7.csv')
+                analysis_path = os.path.join(script_dir, 'AnalysisOfImplementation_v7.csv')
+                
+                with open(bidask_path, 'a', newline='') as csvfile:
                     writer=csv.writer(csvfile, delimiter=',')
                     writer.writerow(bid)
                     writer.writerow(ask)
-                with open('D:\\IIITN\\PhD\\Reinforcement_Learning_implementation\\AnalysisOfImplementation_v7.csv', 'a', newline='') as csvfile:
+                with open(analysis_path, 'a', newline='') as csvfile:
                     writer=csv.writer(csvfile, delimiter=',')
                     writer.writerow(analysisData)
             print("Total No. of Buyers:", NoOfBuyers)

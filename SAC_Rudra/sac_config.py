@@ -7,8 +7,9 @@ class SACConfig:
     """Configuration for SAC algorithm and environment"""
     
     # Environment Parameters
-    DATA_PATH = r'D:\IIITN\PhD\Reinforcement_Learning_implementation\Data_for_Qcode.csv'
-    ENERGY_DATA_PATH = r'D:\IIITN\PhD\Reinforcement_Learning_implementation\Energy_data_v7.csv'
+    # Input data file with load, PV, and price information
+    DATA_PATH = r'Data_for_Qcode.csv'  # Input data - if missing, run create_sample_data.py
+    ENERGY_DATA_PATH = r'Energy_data_v7.csv'  # Output file for energy calculations
     
     # Microgrid Constants (from your code_v7.py)
     ESS_MAX = 100.0  # kWh
@@ -57,6 +58,13 @@ class SACConfig:
     AUTO_ENTROPY = True       # Automatic entropy tuning
     TARGET_ENTROPY = -ACTION_DIM  # Target entropy = -action_dim
     
+    # Action scaling (reduce from 10% to 5% for more stable learning)
+    ACTION_SCALE = 0.05       # Charge/discharge rate as fraction of capacity per step
+    
+    # Reward shaping weights
+    USE_REWARD_SHAPING = True  # Enable improved reward function
+    REWARD_SCALE = 1000.0      # Scale down costs for better learning
+    
     # Network Architecture
     HIDDEN_DIM = 256          # Hidden layer size
     NUM_HIDDEN_LAYERS = 2     # Number of hidden layers
@@ -70,9 +78,9 @@ class SACConfig:
     GRADIENT_STEPS = 1        # Number of gradient steps per update
     
     # Training Schedule
-    TOTAL_EPISODES = 1000     # Total training episodes (days)
+    TOTAL_EPISODES = 1000     # Extended training for better convergence
     MAX_STEPS_PER_EPISODE = 24  # 24 hourly time slots per day
-    EVAL_FREQ = 50            # Evaluation frequency (episodes)
+    EVAL_FREQ = 25            # Evaluate every 25 episodes
     SAVE_FREQ = 100           # Model save frequency (episodes)
     
     # Logging

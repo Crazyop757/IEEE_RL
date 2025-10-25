@@ -101,6 +101,11 @@ def evaluate_sac_agent(model_path, num_episodes=10):
 def load_qlearning_results(qlearning_csv_path):
     """Load Q-Learning baseline results from CSV"""
     try:
+        # Handle relative paths
+        import os
+        if not os.path.isabs(qlearning_csv_path):
+            qlearning_csv_path = os.path.join(os.path.dirname(__file__), qlearning_csv_path)
+        
         df = pd.read_csv(qlearning_csv_path)
         
         # Extract relevant columns (adjust based on your CSV structure)
@@ -184,9 +189,9 @@ def plot_comparison(sac_costs, qlearning_costs=None, save_path='./comparison.png
 
 def main():
     """Main evaluation pipeline"""
-    # Paths
+    # Paths (use relative paths)
     sac_model_path = './models/sac_microgrid/sac_final.pt'
-    qlearning_results_path = r'D:\IIITN\PhD\Reinforcement_Learning_implementation\AnalysisOfImplementation_v7.csv'
+    qlearning_results_path = r'..\Code_QLearning\AnalysisOfImplementation_v7.csv'  # Relative path
     
     # Evaluate SAC
     print("Starting evaluation...")

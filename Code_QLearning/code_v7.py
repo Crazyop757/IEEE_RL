@@ -3,6 +3,7 @@ from numpy import asarray
 from numpy import savetxt
 import csv
 from scipy.optimize import linprog
+import os
 
 
 ESS_max=100
@@ -12,8 +13,17 @@ mbp_min= 4
 n_c = n_d = 0.9
 chp_min=80
 chp_max=200
-# read csv file into a DataFrame
-data = pd.read_csv(r'D:\\IIITN\\PhD\\Reinforcement_Learning_implementation\\Data_for_Qcode.csv')
+
+# Read csv file into a DataFrame using relative path
+# Get the directory where this script is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+data_path = os.path.join(script_dir, 'Data_for_Qcode.csv')
+
+# If Data_for_Qcode.csv doesn't exist in current folder, try Energy_data_v7.csv
+if not os.path.exists(data_path):
+    data_path = os.path.join(script_dir, 'Energy_data_v7.csv')
+
+data = pd.read_csv(data_path)
 #------------------------------CALCULATING SURPLUS/DEFICT ENERGY OF ALL 4 MG-------------------------------------------------
 def getEnergyData(ESS_EV_Status, i):
     
@@ -71,7 +81,10 @@ def getEnergyData(ESS_EV_Status, i):
     surdef = [i+1] + ind1 + ind2 + com3[0:2] + com4[0:2] + sd5[0:2] + sd6[0:2] + sd7[0:2] + camp8[0:3]
     ESS_EV_Updated= {"com1":com3[2], "com2":com4[2], "sd1":sd5[2], "sd2":sd6[2], "sd3":sd7[2], "camp":camp8[3]}
     # print("Surdef:", surdef)
-    with open('D:\\IIITN\\PhD\\Reinforcement_Learning_implementation\\Energy_data_v7.csv', 'a', newline='') as csvfile:
+    
+    # Write to Energy_data_v7.csv in the same directory as this script
+    output_path = os.path.join(script_dir, 'Energy_data_v7.csv')
+    with open(output_path, 'a', newline='') as csvfile:
         writer=csv.writer(csvfile, delimiter=',')
         writer.writerow(surdef)
     

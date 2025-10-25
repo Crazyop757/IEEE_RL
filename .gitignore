@@ -49,6 +49,15 @@ venv.bak/
 Energy_data_*.csv
 *_output.csv
 *_results.csv
+Data_for_Qcode.csv
+bidAsk_*.csv
+AnalysisOfImplementation_*.csv
+
+# Generated visualization/analysis outputs
+logs/*.png
+logs/*.csv
+logs/*.txt
+logs/sac_microgrid/
 
 # Model checkpoints and training outputs
 *.pkl
@@ -58,7 +67,7 @@ Energy_data_*.csv
 checkpoints/
 models/
 saved_models/
-logs/
+logs/sac_microgrid/
 tensorboard/
 runs/
 
@@ -71,6 +80,8 @@ q_values/
 sac_models/
 sac_logs/
 *.pt
+models/sac_microgrid/*.pt
+SAC_Rudra/models/
 
 # OS specific
 .DS_Store
